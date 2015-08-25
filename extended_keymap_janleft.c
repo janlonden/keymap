@@ -5,10 +5,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // default layers
 
   [0] = {
-    {KC_ESC, KC_F1, KC_F2, KC_F3, KC_TRNS, KC_ENT, CM_Q, CM_W, CM_F, CM_P, CM_G, KC_TRNS},
-    {KC_POWER, KC_F4, KC_F5, KC_F6, KC_TRNS, KC_BSPC, CM_A, CM_R, CM_S, CM_T, CM_D, KC_TRNS},
-    {KC_PSCREEN, KC_F7, KC_F8, KC_F9, KC_TRNS, KC_LSFT, CM_Z, CM_X, CM_C, CM_V, CM_B, KC_TRNS},
-    {M(0), KC_F10, KC_F11, KC_F12, KC_TRNS, KC_LGUI, KC_LCTL, KC_LALT, KC_ESC, FUNC(10), KC_SPC, FUNC(11)}
+    {KC_ESC, KC_TRNS, KC_F1, KC_F2, KC_F3, KC_ENT, CM_Q, CM_W, CM_F, CM_P, CM_G, KC_TRNS},
+    {KC_POWER, KC_TRNS, KC_F4, KC_F5, KC_F6, KC_BSPC, CM_A, CM_R, CM_S, CM_T, CM_D, KC_TRNS},
+    {KC_PSCREEN, KC_TRNS, KC_F7, KC_F8, KC_F9, KC_LSFT, CM_Z, CM_X, CM_C, CM_V, CM_B, KC_TRNS},
+    {M(0), KC_TRNS, KC_F10, KC_F11, KC_F12, KC_LGUI, KC_LCTL, KC_LALT, KC_ESC, FUNC(10), KC_SPC, FUNC(11)}
   },
 
   // momentary layers
@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [11] = {
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP, KC_END, KC_TRNS, RESET},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DELETE, FUNC(12), KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS},
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DELETE, FUNC(12), KC_LEFT, KC_DOWN, KC_RIGHT, M(2), KC_TRNS},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FUNC(13), KC_TRNS, KC_PGUP, KC_PGDOWN, KC_TRNS, KC_TRNS},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FUNC(11)}
   },
@@ -73,6 +73,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     break;
     case 1:
       return MACRODOWN(DOWN(KC_LALT), DOWN(KC_TAB), UP(KC_TAB), END);
+    break;
+    case 2:
+      return MACRODOWN(DOWN(KC_LCTL), TYPE(CM_K), TYPE(CM_B), UP(KC_LCTL), END);
     break;
   } 
   return MACRO_NONE;
