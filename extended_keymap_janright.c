@@ -54,7 +54,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
   // default layers
 
-  [1] = ACTION_DEFAULT_LAYER_SET(0),
+  [0] = ACTION_DEFAULT_LAYER_SET(0),
 
   // momentary layers
 
@@ -63,8 +63,6 @@ const uint16_t PROGMEM fn_actions[] = {
 
   [20] = ACTION_LAYER_MOMENTARY(20),
   [21] = ACTION_LAYER_MOMENTARY(21),
-
-  // misc
 
   [30] = ACTION_LAYER_TAP_KEY(14, KC_0)
 
