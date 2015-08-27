@@ -64,7 +64,7 @@ const uint16_t PROGMEM fn_actions[] = {
   [20] = ACTION_LAYER_MOMENTARY(20),
   [21] = ACTION_LAYER_MOMENTARY(21),
 
-  [30] = ACTION_LAYER_TAP_KEY(14, KC_0)
+  [30] = ACTION_LAYER_TAP_KEY(30, KC_0)
 
 };
 
