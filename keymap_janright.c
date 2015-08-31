@@ -7,7 +7,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = {
     {KC_BTN1, KC_MS_U, KC_BTN2, CM_J, CM_L, CM_U, CM_Y, CM_SCLN, KC_TRNS, KC_7, KC_8, KC_9},
     {KC_MS_L, KC_MS_D, KC_MS_R, CM_H, CM_N, CM_E, CM_I, CM_O, KC_QUOT, KC_4, KC_5, KC_6},
-    {KC_ACL0, KC_ACL1, KC_ACL2, CM_K, CM_M, CM_COMM, CM_DOT, CM_SLSH, KC_RALT, KC_1, KC_2, KC_3}, 
+    {KC_BTN4, KC_BTN3, KC_BTN5, CM_K, CM_M, CM_COMM, CM_DOT, CM_SLSH, KC_RALT, KC_1, KC_2, KC_3}, 
     {M(0), KC_TRNS, FUNC(20), KC_RSFT, FUNC(10), KC_ENT, KC_RSFT, KC_RCTL, KC_TRNS, FUNC(30), CM_DOT, KC_ENT}
   },
 
@@ -51,12 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-
-  // default layers
-
-  [0] = ACTION_DEFAULT_LAYER_SET(0),
-
-  // momentary layers
 
   [10] = ACTION_LAYER_MOMENTARY(10),
   [11] = ACTION_LAYER_MOMENTARY(11),

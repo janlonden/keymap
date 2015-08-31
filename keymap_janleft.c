@@ -52,12 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
 
-  // default layers
-
-  [0] = ACTION_DEFAULT_LAYER_SET(0),
-
-  // momentary layers
-
   [10] = ACTION_LAYER_MOMENTARY(10),
 
   [20] = ACTION_LAYER_MOMENTARY(20),
