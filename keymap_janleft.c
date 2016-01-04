@@ -1,11 +1,11 @@
-#include "keymap_common.h"
+#include "keymap_colemak.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // default layers
 
   [0] = {
-    {FUNC(30), CM_Q, CM_W, CM_F, CM_P, CM_G, KC__MUTE, KC_TRNS, KC_F10, KC_F11, KC_F12, KC_POWER},
+    {FUNC(30), CM_Q, CM_W, CM_F, CM_P, CM_G, KC__MUTE, KC_TRNS, KC_F10, KC_F11, KC_F12, KC_SLEP},
     {KC_BSPC, CM_A, CM_R, CM_S, CM_T, CM_D, KC__VOLUP, KC_TRNS, KC_F7, KC_F8, KC_F9, KC_PSCREEN},
     {KC_LGUI, CM_Z, CM_X, CM_C, CM_V, CM_B, KC__VOLDOWN, KC_TRNS, KC_F4, KC_F5, KC_F6, KC_TRNS},
     {KC_LALT, KC_LCTL, KC_LSFT, KC_ESC, FUNC(10), KC_SPC, FUNC(20), KC_TRNS, KC_F1, KC_F2, KC_F3, M(0)}
@@ -58,7 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-
   [10] = ACTION_LAYER_MOMENTARY(10),
 
   [20] = ACTION_LAYER_MOMENTARY(20),
@@ -66,11 +65,9 @@ const uint16_t PROGMEM fn_actions[] = {
   [22] = ACTION_LAYER_MOMENTARY(22),
 
   [30] = ACTION_LAYER_TAP_KEY(30, KC_SPC)
-
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case 0:
       return MACRODOWN(TYPE(CM_A), TYPE(CM_R), TYPE(CM_S), TYPE(CM_T), TYPE(KC_ENT), END);
