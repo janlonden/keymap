@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL, FUNC(11), KC_TRNS, KC_TRNS},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_6, KC_7, KC_8, KC_9, KC_0, KC_TRNS},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FUNC(10), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FUNC(10), RALT(CM_E), M(1), M(2), KC_TRNS}
   },
 
   [11] = {
@@ -72,6 +72,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case 0:
       return MACRODOWN(TYPE(CM_A), TYPE(CM_R), TYPE(CM_S), TYPE(CM_T), TYPE(KC_ENT), END);
+    break;
+    case 1:
+      return MACRODOWN(DOWN(KC_LGUI), DOWN(KC_LCTL), TYPE(KC_UP), UP(KC_LCTL), UP(KC_LGUI), END);
+    break;
+    case 2:
+      return MACRODOWN(DOWN(KC_LGUI), DOWN(KC_LCTL), TYPE(KC_DOWN), UP(KC_LCTL), UP(KC_LGUI), END);
     break;
   }
   return MACRO_NONE;
