@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // momentary layers
 
   [10] = {
-    {KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+    {KC_TRNS, M(5), KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
     {LCTL(KC_BSPC), KC_1, KC_2, KC_3, KC_4, KC_5, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
     {S(KC_GRV), S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
     {KC_TRNS, M(3), M(4), KC_GRV, FUNC(10), KC_TAB, S(KC_TAB), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
@@ -83,6 +83,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     break;
     case 4:
       return MACRODOWN(DOWN(KC_LGUI), DOWN(KC_LCTL), TYPE(KC_RIGHT), UP(KC_LCTL), UP(KC_LGUI), END);
+    break;
+    case 5:
+      return MACRODOWN(DOWN(KC_LCTL), DOWN(KC_LALT), TYPE(CM_T), UP(KC_LALT), UP(KC_LCTL), END);
     break;
   }
   return MACRO_NONE;
