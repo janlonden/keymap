@@ -25,6 +25,7 @@
 #define CTL_X__CTL 22
 #define CTL_C__SFT 23
 #define CTL_V__ALT 24
+#define _TILD 25
 
 #define _DEL 30
 #define ALT_TAB 31
@@ -41,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [10] = {
-    {_______, M(CTL_SFT_K__RALT_Q), M(ENT__RALT_W), M(CTL_SFT_D__RALT_SCLN), _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(_TILD), M(CTL_SFT_K__RALT_Q), M(ENT__RALT_W), M(CTL_SFT_D__RALT_SCLN), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(CTL_Q__LAYER), M(SFT_TAB__CTL_W), M(CTL_PGUP__CTL_F), M(CTL_BSPC__CTL_P), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(CTL_A__LAYER), M(TAB__CTL_R), M(CTL_PGDOWN__CTL_S), M(BSPC__CTL_T), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(CTL_Z__LAYER), M(CTL_X__CTL), M(CTL_C__SFT), M(CTL_V__ALT), _______, _______, _______, _______, _______, _______, _______, _______}
@@ -49,16 +50,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [11] = {
     {_______, _______, LCTL(CM_D), M(_DEL), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_LEFT, LCTL(KC_UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, KC_HOME, KC_UP, KC_END, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, KC_PGUP, KC_PGDOWN, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [12] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_HOME, KC_UP, KC_END, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, KC_PGUP, KC_PGDOWN, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, KC_LEFT, LCTL(KC_UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [13] = {
@@ -342,6 +343,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(CM_V);
           unregister_code(CM_V);
           unregister_code(KC_LCTL);
+        }
+      }
+      break;
+    }
+    case _TILD: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+          register_code(KC_TILD);
+          unregister_code(KC_TILD);
+        } else {
+          register_code(KC_LSFT);
+          register_code(KC_TILD);
+          unregister_code(KC_TILD);
+          unregister_code(KC_LSFT);
         }
       }
       break;
