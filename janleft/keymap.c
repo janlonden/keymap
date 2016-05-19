@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [12] = {
-    {_______, _______, _______, M(_DEL), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, M(_DEL), _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, KC_LEFT, LCTL(KC_UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [14] = {
     {_______, _______, M(7), M(8), M(9), _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_ENT, M(4), M(5), M(6), _______, _______, _______, _______, _______, _______, _______},
+    {_______, KC_BSPC, M(4), M(5), M(6), _______, _______, _______, _______, _______, _______, _______},
     {_______, M(0), M(1), M(2), M(3), _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, KC_DOT, _______, _______, _______, _______, _______, _______, _______}
   }
@@ -108,7 +108,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case SFT_TAB__RALT_Q: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < QUICK_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
           register_code(KC_LSFT);
           register_code(KC_TAB);
           unregister_code(KC_TAB);
@@ -125,7 +125,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ENT__RALT_W: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < QUICK_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
           register_code(KC_ENT);
           unregister_code(KC_ENT);
         } else {
@@ -140,7 +140,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case TAB__RALT_SCLN: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < QUICK_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
           register_code(KC_TAB);
           unregister_code(KC_TAB);
         } else {
@@ -216,7 +216,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(13);
       } else {
         layer_off(13);
-        if (timer_elapsed(key_timer) < QUICK_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
           register_code(KC_LCTL);
           register_code(KC_BSPC);
           unregister_code(KC_BSPC);
