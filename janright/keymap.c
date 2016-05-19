@@ -7,9 +7,11 @@
 #define NORMAL_PRESS 150
 #define SLOW_PRESS 300
 
+// layer 0
 #define LOGIN 10
 #define LAYER11__SFT 11
 
+// layer 10
 #define _LBRC 30
 #define _RBRC 31
 #define _BSLS 32
@@ -21,9 +23,10 @@
 #define _LSFT 38
 #define _LCTL 39
 #define _RALT 40
+#define OPEN_LAYER11 41
 
-#define OPEN_LAYER11 50
-#define CLOSE_LAYER11 51
+// layer 11
+#define CLOSE_LAYER11 50
 
 static uint16_t key_timer;
 
@@ -33,14 +36,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, KC_COMM, KC_DOT, KC_SLSH, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, CM_L, CM_U, CM_Y, CM_SCLN},
     {_______, _______, _______, _______, _______, _______, _______, _______, CM_N, CM_E, CM_I, CM_O},
-    {M(LOGIN), _______, _______, _______, _______, RESET, MO(10), KC_LSFT, CM_M, CM_J, CM_K, CM_H}
+    {M(LOGIN), _______, _______, _______, _______, _______, MO(10), KC_LSFT, CM_M, CM_J, CM_K, CM_H}
   },
 
   [10] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, M(_LBRC), M(_RBRC), M(_BSLS), _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(_LPRN), M(_RPRN), M(_QUOT), S(KC_1)},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(_MINS), M(_EQL), RALT(CM_E), M(OPEN_LAYER11)},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LSFT, KC_LCTL, KC_RALT}
+    {_______, _______, _______, _______, _______, RESET, _______, _______, _______, KC_LSFT, KC_LCTL, KC_RALT}
   },
 
   [11] = {
@@ -58,6 +61,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
+// layer 0 //////////////////////////////////////////////////////
     case LOGIN: {
       if (record->event.pressed) {
         register_code(CM_A);
@@ -85,7 +89,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-//////////////////////////////////////////////////////////////////
+// layer 10 //////////////////////////////////////////////////////
     case _LBRC: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
@@ -196,19 +200,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-//////////////////////////////////////////////////////////////////
     case OPEN_LAYER11: {
       if (record->event.pressed) {
         layer_on(11);
       }
       break;
     }
-    case CLOSE_LAYER11: {
-      if (record->event.pressed) {
-        layer_off(11);
-      }
-      break;
-    }
+// layer 11 //////////////////////////////////////////////////////
     case 0: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
@@ -356,6 +354,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           unregister_code(KC_9);
           unregister_code(KC_LSFT);
         }
+      }
+      break;
+    }
+    case CLOSE_LAYER11: {
+      if (record->event.pressed) {
+        layer_off(11);
       }
       break;
     }
