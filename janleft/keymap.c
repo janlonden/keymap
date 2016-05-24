@@ -3,82 +3,94 @@
 
 #define _______ KC_TRNS
 
-#define QUICK_PRESS 100
-#define NORMAL_PRESS 150
-#define SLOW_PRESS 300
+#define NORMAL 150
+#define SLOW 300
+#define SUPERSLOW 600
 
 // layer 0
-#define LOGIN 40
+#define LOGIN 10
 
 // layer 10
-#define SFT_TAB__RALT_Q 10
-#define ENT__RALT_W 11
-#define TAB__RALT_SCLN 12
-#define TILD__LAYER11 13
-#define KC_HOME__CTL_R 14
-#define KC_END__CTL_S 15
-#define BSPC__LAYER12 16
-#define CTL_BSPC__LAYER13 17
-#define CTL_X__CTL 18
-#define CTL_C__SFT 19
-#define CTL_V__ALT 20
+#define TAB__A__D 20
+#define ENT__T__N 21
+#define TAB__P__O 22
+#define HOME__W__Q 23
+#define END__S__R 24
+#define BSPC__LAYER11 25
+#define BSPC__LAYER12 26
+
+// layer 11
+#define _SLSH 30
+#define D__K 31
 
 // layer 12
-#define _DEL 50
-#define ALT_TAB 51
-
-// layer 13
-#define CTL_W__CTL_Q 60
-#define CTL_PGUP__CTL_F 61
-#define CTL_PGDOWN__CTL_P 62
-#define CTL_SFT_K__CTL_A 63
-#define CTL_SFT_D__CTL_T 64
+#define LEFT__UP 41
+#define ALT_TAB 42
+#define X__LEFT 43
+#define C__DOWN 44
+#define V__RIGHT 45
+#define F12__F2__F11 46
+#define _DEL 47
 
 static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = {
-    {KC_ESC, CM_G, CM_D, CM_B, KC__MUTE, _______, _______, _______, KC_F10, KC_F11, KC_F12, KC_SLEP},
-    {CM_Q, CM_W, CM_F, CM_P, KC__VOLUP, _______, _______, _______, KC_F7, KC_F8, KC_F9, KC_PSCREEN},
-    {CM_A, CM_R, CM_S, CM_T, KC__VOLDOWN, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______},
-    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), _______, KC_F1, KC_F2, KC_F3, M(LOGIN)}
+    {KC_ESC, CM_G, CM_D, CM_B, RALT(CM_SCLN), KC__MUTE, _______, _______, _______, _______, _______, _______},
+    {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), KC__VOLUP, _______, _______, _______, _______, _______, _______},
+    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), KC__VOLDOWN, _______, _______, _______, _______, _______, _______},
+    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), _______, _______, _______, _______, M(LOGIN)}
   },
 
   [10] = {
-    {_______, M(SFT_TAB__RALT_Q), M(ENT__RALT_W), M(TAB__RALT_SCLN), _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(TILD__LAYER11), M(KC_HOME__CTL_R), KC_UP, M(KC_END__CTL_S), _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(BSPC__LAYER12), KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(CTL_BSPC__LAYER13), M(CTL_X__CTL), M(CTL_C__SFT), M(CTL_V__ALT), _______, _______, RESET, _______, _______, _______, _______, _______}
+    {_______, M(TAB__A__D), M(ENT__T__N), M(TAB__P__O), _______, _______, _______, _______, _______, _______, _______, _______},
+    {MO(13), M(HOME__W__Q), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(BSPC__LAYER11), KC_LEFT, KC_DOWN, KC_RIGHT, OSL(15), _______, _______, _______, _______, _______, _______, _______},
+    {M(BSPC__LAYER12), _______, _______, LCTL(CM_D), _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [11] = {
-    {_______, KC_BTN3, LCTL(CM_A), LCTL(CM_T), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, LCTL(S(CM_Z)), LCTL(CM_Z), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, LCTL(CM_N), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, M(_SLSH), M(D__K), KC_BTN3, _______, _______, _______, _______, _______, _______}
   },
 
   [12] = {
-    {_______, _______, M(_DEL), _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_LEFT, LCTL(KC_UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, M(LEFT__UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, M(X__LEFT), M(C__DOWN), M(V__RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, M(F12__F2__F11), LSFT(KC_SPC), M(_DEL), _______, _______, _______, _______, _______, _______}
   },
 
   [13] = {
+    {_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, KC_RALT, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, M(CTL_W__CTL_Q), M(CTL_PGUP__CTL_F), M(CTL_PGDOWN__CTL_P), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, M(CTL_SFT_K__CTL_A), M(CTL_SFT_D__CTL_T), LCTL(CM_D), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, LCTL(KC_SLSH), _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______}
   },
 
   [14] = {
     {_______, _______, M(7), M(8), M(9), _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_BSPC, M(4), M(5), M(6), _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, M(4), M(5), M(6), _______, _______, _______, _______, _______, _______, _______},
     {_______, M(0), M(1), M(2), M(3), _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, KC_DOT, _______, _______, _______, _______, _______, _______, _______}
+    {_______, KC_BSPC, _______, _______, KC_DOT, _______, _______, _______, _______, _______, _______, _______}
+  },
+
+  [15] = {
+    {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, KC_F7, KC_F8, KC_F9, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_PSCREEN, KC_F4, KC_F5, KC_F6, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_SLEP, KC_F1, KC_F2, KC_F3, _______, RESET, _______, _______, _______, _______, _______, _______}
   }
+
+  // [] = {
+  //   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  //   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  //   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  //   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  // },
 
 };
 
@@ -105,74 +117,99 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
 // layer 10 //////////////////////////////////////////////////////
-    case SFT_TAB__RALT_Q: {
+    case TAB__A__D: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LSFT);
           register_code(KC_TAB);
           unregister_code(KC_TAB);
           unregister_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LCTL);
+          register_code(CM_A);
+          unregister_code(CM_A);
+          unregister_code(KC_LCTL);
         } else {
-          register_code(KC_RALT);
-          register_code(CM_Q);
-          unregister_code(CM_Q);
-          unregister_code(KC_RALT);
+          register_code(KC_LALT);
+          register_code(CM_D);
+          unregister_code(CM_D);
+          unregister_code(KC_LALT);
         }
       }
       break;
     }
-    case ENT__RALT_W: {
+    case ENT__T__N: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_ENT);
           unregister_code(KC_ENT);
-        } else {
-          register_code(KC_RALT);
-          register_code(CM_W);
-          unregister_code(CM_W);
-          unregister_code(KC_RALT);
-        }
-      }
-      break;
-    }
-    case TAB__RALT_SCLN: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_TAB);
-          unregister_code(KC_TAB);
-        } else {
-          register_code(KC_RALT);
-          register_code(CM_SCLN);
-          unregister_code(CM_SCLN);
-          unregister_code(KC_RALT);
-        }
-      }
-      break;
-    }
-    case TILD__LAYER11: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        layer_on(11);
-      } else {
-        layer_off(11);
-        if (timer_elapsed(key_timer) < QUICK_PRESS) {
+        } else if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
-          register_code(KC_TILD);
-          unregister_code(KC_TILD);
+          register_code(CM_T);
+          unregister_code(CM_T);
+          unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_LCTL);
+          register_code(CM_N);
+          unregister_code(CM_N);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
-    case KC_HOME__CTL_R: {
+    case TAB__P__O: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_TAB);
+          unregister_code(KC_TAB);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LCTL);
+          register_code(CM_P);
+          unregister_code(CM_P);
+          unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_LCTL);
+          register_code(CM_O);
+          unregister_code(CM_O);
+          unregister_code(KC_LCTL);
+        }
+      }
+      break;
+    }
+    case HOME__W__Q: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_HOME);
           unregister_code(KC_HOME);
+        } else if (timer_elapsed(key_timer) < SUPERSLOW) {
+          register_code(KC_LCTL);
+          register_code(CM_W);
+          unregister_code(CM_W);
+          unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_LCTL);
+          register_code(CM_Q);
+          unregister_code(CM_Q);
+          unregister_code(KC_LCTL);
+        }
+      }
+      break;
+    }
+    case END__S__R: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_END);
+          unregister_code(KC_END);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LCTL);
+          register_code(CM_S);
+          unregister_code(CM_S);
+          unregister_code(KC_LCTL);
         } else {
           register_code(KC_LCTL);
           register_code(CM_R);
@@ -182,17 +219,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case KC_END__CTL_S: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_END);
-          unregister_code(KC_END);
-        } else {
-          register_code(KC_LCTL);
-          register_code(CM_S);
-          unregister_code(CM_S);
-          unregister_code(KC_LCTL);
+    case BSPC__LAYER11: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        layer_on(11);
+      } else {
+        layer_off(11);
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_BSPC);
+          unregister_code(KC_BSPC);
         }
       }
       break;
@@ -203,20 +238,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(12);
       } else {
         layer_off(12);
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_BSPC);
-          unregister_code(KC_BSPC);
-        }
-      }
-      break;
-    }
-    case CTL_BSPC__LAYER13: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        layer_on(13);
-      } else {
-        layer_off(13);
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LCTL);
           register_code(KC_BSPC);
           unregister_code(KC_BSPC);
@@ -225,62 +247,58 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case CTL_X__CTL: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_code(KC_LCTL);
-      } else {
-        unregister_code(KC_LCTL);
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+// layer 11 //////////////////////////////////////////////////////
+    case _SLSH: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_SLSH);
+          unregister_code(KC_SLSH);
+          register_code(KC_SLSH);
+          unregister_code(KC_SLSH);
+        } else {
           register_code(KC_LCTL);
-          register_code(CM_X);
-          unregister_code(CM_X);
+          register_code(KC_SLSH);
+          unregister_code(KC_SLSH);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
-    case CTL_C__SFT: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_code(KC_LSFT);
-      } else {
-        unregister_code(KC_LSFT);
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+    case D__K: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LCTL);
-          register_code(CM_C);
-          unregister_code(CM_C);
+          register_code(KC_LSFT);
+          register_code(CM_D);
+          unregister_code(CM_D);
+          unregister_code(KC_LSFT);
           unregister_code(KC_LCTL);
-        }
-      }
-      break;
-    }
-    case CTL_V__ALT: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_code(KC_LALT);
-      } else {
-        unregister_code(KC_LALT);
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        } else {
           register_code(KC_LCTL);
-          register_code(CM_V);
-          unregister_code(CM_V);
+          register_code(KC_LSFT);
+          register_code(CM_K);
+          unregister_code(CM_K);
+          unregister_code(KC_LSFT);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
 // layer 12 //////////////////////////////////////////////////////
-    case _DEL: {
+    case LEFT__UP: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_DEL);
-          unregister_code(KC_DEL);
+        if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
         } else {
           register_code(KC_LCTL);
-          register_code(KC_DEL);
-          unregister_code(KC_DEL);
+          register_code(KC_LGUI);
+          register_code(KC_UP);
+          unregister_code(KC_UP);
+          unregister_code(KC_LGUI);
           unregister_code(KC_LCTL);
         }
       }
@@ -292,91 +310,89 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// layer 13 //////////////////////////////////////////////////////
-    case CTL_W__CTL_Q: {
+    case X__LEFT: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
-          register_code(CM_W);
-          unregister_code(CM_W);
+          register_code(CM_X);
+          unregister_code(CM_X);
           unregister_code(KC_LCTL);
         } else {
           register_code(KC_LCTL);
-          register_code(CM_Q);
-          unregister_code(CM_Q);
+          register_code(KC_LGUI);
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LGUI);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
-    case CTL_PGUP__CTL_F: {
+    case C__DOWN: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
-          register_code(KC_PGUP);
-          unregister_code(KC_PGUP);
+          register_code(CM_C);
+          unregister_code(CM_C);
           unregister_code(KC_LCTL);
         } else {
           register_code(KC_LCTL);
-          register_code(CM_F);
-          unregister_code(CM_F);
+          register_code(KC_LGUI);
+          register_code(KC_DOWN);
+          unregister_code(KC_DOWN);
+          unregister_code(KC_LGUI);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
-    case CTL_PGDOWN__CTL_P: {
+    case V__RIGHT: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
-          register_code(KC_PGDOWN);
-          unregister_code(KC_PGDOWN);
+          register_code(CM_V);
+          unregister_code(CM_V);
           unregister_code(KC_LCTL);
         } else {
           register_code(KC_LCTL);
-          register_code(CM_P);
-          unregister_code(CM_P);
+          register_code(KC_LGUI);
+          register_code(KC_RIGHT);
+          unregister_code(KC_RIGHT);
+          unregister_code(KC_LGUI);
           unregister_code(KC_LCTL);
         }
       }
       break;
     }
-    case CTL_SFT_K__CTL_A: {
+    case F12__F2__F11: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_LCTL);
-          register_code(KC_LSFT);
-          register_code(CM_K);
-          unregister_code(CM_K);
-          unregister_code(KC_LSFT);
-          unregister_code(KC_LCTL);
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_F12);
+          unregister_code(KC_F12);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_F2);
+          unregister_code(KC_F2);
         } else {
-          register_code(KC_LCTL);
-          register_code(CM_A);
-          unregister_code(CM_A);
-          unregister_code(KC_LCTL);
+          register_code(KC_F11);
+          unregister_code(KC_F11);
         }
       }
       break;
     }
-    case CTL_SFT_D__CTL_T: {
+    case _DEL: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
-          register_code(KC_LCTL);
-          register_code(KC_LSFT);
-          register_code(CM_D);
-          unregister_code(CM_D);
-          unregister_code(KC_LSFT);
-          unregister_code(KC_LCTL);
+        if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_DEL);
+          unregister_code(KC_DEL);
         } else {
           register_code(KC_LCTL);
-          register_code(CM_T);
-          unregister_code(CM_T);
+          register_code(KC_DEL);
+          unregister_code(KC_DEL);
           unregister_code(KC_LCTL);
         }
       }
@@ -386,7 +402,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 0: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_0);
           unregister_code(KC_0);
         } else {
@@ -401,7 +417,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 1: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_1);
           unregister_code(KC_1);
         } else {
@@ -416,7 +432,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 2: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_2);
           unregister_code(KC_2);
         } else {
@@ -431,7 +447,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 3: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_3);
           unregister_code(KC_3);
         } else {
@@ -446,7 +462,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 4: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_4);
           unregister_code(KC_4);
         } else {
@@ -461,7 +477,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 5: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_5);
           unregister_code(KC_5);
         } else {
@@ -476,7 +492,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 6: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_6);
           unregister_code(KC_6);
         } else {
@@ -491,7 +507,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 7: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_7);
           unregister_code(KC_7);
         } else {
@@ -506,7 +522,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 8: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_8);
           unregister_code(KC_8);
         } else {
@@ -521,7 +537,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 9: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL_PRESS) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_9);
           unregister_code(KC_9);
         } else {
