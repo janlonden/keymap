@@ -8,7 +8,8 @@
 #define SUPERSLOW 600
 
 // layer 0
-#define LOGIN 10
+#define SPC__LAYER16 10
+#define LOGIN 11
 
 // layer 10
 #define TAB__A__D 20
@@ -37,7 +38,7 @@ static uint16_t key_timer;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = {
-    {KC_ESC, CM_G, CM_D, CM_B, RALT(CM_SCLN), KC__MUTE, _______, _______, _______, _______, _______, _______},
+    {M(SPC__LAYER16), CM_G, CM_D, CM_B, RALT(CM_SCLN), KC__MUTE, _______, _______, _______, _______, _______, _______},
     {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), KC__VOLUP, _______, _______, _______, _______, _______, _______},
     {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), KC__VOLDOWN, _______, _______, _______, _______, _______, _______},
     {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), _______, _______, _______, _______, M(LOGIN)}
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, M(TAB__A__D), M(ENT__T__N), M(TAB__P__O), _______, _______, _______, _______, _______, _______, _______, _______},
     {MO(13), M(HOME__W__Q), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(BSPC__LAYER11), KC_LEFT, KC_DOWN, KC_RIGHT, OSL(15), _______, _______, _______, _______, _______, _______, _______},
-    {M(BSPC__LAYER12), _______, _______, LCTL(CM_D), _______, _______, _______, _______, _______, _______, _______, _______}
+    {M(BSPC__LAYER12), _______, KC_ESC, LCTL(CM_D), _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [11] = {
@@ -83,6 +84,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, KC_F7, KC_F8, KC_F9, _______, _______, _______, _______, _______, _______, _______, _______},
     {KC_PSCREEN, KC_F4, KC_F5, KC_F6, _______, _______, _______, _______, _______, _______, _______, _______},
     {KC_SLEP, KC_F1, KC_F2, KC_F3, _______, RESET, _______, _______, _______, _______, _______, _______}
+  },
+
+  [16] = {
+    {_______, S(KC_SPC), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(CM_W), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_LSFT, KC_LCTL, LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_ENT, _______, _______, _______, _______, _______, _______, _______}
   }
 
   // [] = {
@@ -101,6 +109,19 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
 // layer 0 //////////////////////////////////////////////////////
+    case SPC__LAYER16: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        layer_on(16);
+      } else {
+        layer_off(16);
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_SPC);
+          unregister_code(KC_SPC);
+        }
+      }
+      break;
+    }
     case LOGIN: {
       if (record->event.pressed) {
         register_code(CM_A);
@@ -252,15 +273,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_SLSH);
-          unregister_code(KC_SLSH);
-          register_code(KC_SLSH);
-          unregister_code(KC_SLSH);
-        } else {
           register_code(KC_LCTL);
           register_code(KC_SLSH);
           unregister_code(KC_SLSH);
           unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_SLSH);
+          unregister_code(KC_SLSH);
+          register_code(KC_SLSH);
+          unregister_code(KC_SLSH);
         }
       }
       break;
@@ -402,7 +423,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 0: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_0);
           unregister_code(KC_0);
         } else {
@@ -417,7 +438,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 1: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_1);
           unregister_code(KC_1);
         } else {
@@ -432,7 +453,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 2: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_2);
           unregister_code(KC_2);
         } else {
@@ -447,7 +468,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 3: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_3);
           unregister_code(KC_3);
         } else {
@@ -462,7 +483,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 4: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_4);
           unregister_code(KC_4);
         } else {
@@ -477,7 +498,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 5: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_5);
           unregister_code(KC_5);
         } else {
@@ -492,7 +513,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 6: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_6);
           unregister_code(KC_6);
         } else {
@@ -507,7 +528,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 7: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_7);
           unregister_code(KC_7);
         } else {
@@ -522,7 +543,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 8: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_8);
           unregister_code(KC_8);
         } else {
@@ -537,7 +558,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 9: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < SLOW) {
+        if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_9);
           unregister_code(KC_9);
         } else {
