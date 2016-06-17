@@ -7,13 +7,13 @@
 #define SLOW 300
 
 // layer 0
-#define LOGIN 10
+#define OPEN_LAYER13 10
+#define LOGIN 11
 
 // layer 10
 #define _LBRC 20
 #define _RBRC 21
 #define _BSLS 22
-#define OPEN_LAYER13 23
 #define _QUOT 24
 #define _MINS 25
 #define _EQL 26
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [13] = {
-    {_______, _______, _______, _______, _______, _______, _______, _______, M(7), M(8), M(9), M(OPEN_LAYER13)},
+    {_______, _______, _______, _______, _______, _______, _______, _______, M(7), M(8), M(9), M(CLOSE_LAYER13)},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(4), M(5), M(6), _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(1), M(2), M(3), KC_ENT},
     {_______, _______, _______, _______, _______, _______, KC_BSPC, M(0), KC_DOT, _______, _______, _______}
