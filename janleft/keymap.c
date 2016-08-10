@@ -3,6 +3,7 @@
 
 #define _______ KC_TRNS
 
+#define QUICK 125
 #define NORMAL 150
 #define SLOW 300
 #define SUPERSLOW 600
@@ -24,7 +25,7 @@
 
 // layer 11
 #define _SLSH 30
-#define D__K 31
+#define ALT_LEFT__K 31
 
 // layer 12
 #define LEFT__UP 41
@@ -40,29 +41,29 @@ static uint16_t key_timer;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = {
-    {M(SPC__LAYER16), CM_G, CM_D, CM_B, RALT(CM_SCLN), KC__MUTE, _______, _______, _______, _______, _______, _______},
-    {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), KC__VOLUP, _______, _______, _______, _______, _______, _______},
-    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), KC__VOLDOWN, _______, _______, _______, _______, _______, _______},
-    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), _______, _______, _______, _______, M(LOGIN)}
+    {M(SPC__LAYER16), CM_G, CM_D, CM_B, RALT(CM_SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
+    {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), _______, _______, _______, _______, _______, _______, KC_PSCREEN},
+    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), _______, _______, _______, _______, _______, _______, _______},
+    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), MO(15), _______, _______, _______, M(LOGIN)}
   },
 
   [10] = {
-    {_______, M(TAB__A__D), M(ENT__T__N), M(TAB__P__O), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, M(TAB__A__D), M(ENT__T__N), M(TAB__P__O), _______, _______, _______, _______, _______, _______, _______, RESET},
     {MO(13), M(HOME__W__Q), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(BSPC__LAYER11), KC_LEFT, KC_DOWN, KC_RIGHT, OSL(15), _______, _______, _______, _______, _______, _______, _______},
+    {M(BSPC__LAYER11), KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
     {M(BSPC__LAYER12), LCTL(CM_D), M(ESC__CTL), M(V__C__X__SFT), _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [11] = {
-    {_______, _______, LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(KC_0), LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, M(_SLSH), M(D__K), KC_BTN3, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, M(_SLSH), M(ALT_LEFT__K), KC_BTN3, _______, _______, _______, _______, _______, _______}
   },
 
   [12] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, LCTL(KC_0), M(LEFT__UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, M(LEFT__UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, M(VOLDOWN__LEFT), M(MUTE__DOWN), M(VOLUP__RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, KC_PGUP, KC_PGDOWN, M(F12__F2__F11), LSFT(KC_SPC), M(_DEL), _______, _______, _______, _______, _______, _______}
   },
@@ -82,10 +83,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [15] = {
-    {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_F7, KC_F8, KC_F9, _______, _______, _______, _______, _______, _______, _______, _______},
-    {KC_PSCREEN, KC_F4, KC_F5, KC_F6, _______, _______, _______, _______, _______, _______, _______, _______},
-    {KC_SLEP, KC_F1, KC_F2, KC_F3, _______, RESET, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, KC_F7, KC_F8, KC_F9, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, KC_F4, KC_F5, KC_F6, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, KC_F1, KC_F2, KC_F3, _______, _______, _______, _______, _______, _______}
   },
 
   [16] = {
@@ -248,7 +249,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(11);
       } else {
         layer_off(11);
-        if (timer_elapsed(key_timer) < NORMAL) {
+        if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_BSPC);
           unregister_code(KC_BSPC);
         }
@@ -261,7 +262,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         layer_on(12);
       } else {
         layer_off(12);
-        if (timer_elapsed(key_timer) < NORMAL) {
+        if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_LCTL);
           register_code(KC_BSPC);
           unregister_code(KC_BSPC);
@@ -328,16 +329,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case D__K: {
+    case ALT_LEFT__K: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LCTL);
-          register_code(KC_LSFT);
-          register_code(CM_D);
-          unregister_code(CM_D);
-          unregister_code(KC_LSFT);
-          unregister_code(KC_LCTL);
+          register_code(KC_LALT);
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LALT);
         } else {
           register_code(KC_LCTL);
           register_code(KC_LSFT);
@@ -376,7 +375,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case VOLDOWN__LEFT: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC__VOLDOWN);
           unregister_code(KC__VOLDOWN);
         } else {
@@ -393,7 +392,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case MUTE__DOWN: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC__MUTE);
           unregister_code(KC__MUTE);
         } else {
@@ -410,7 +409,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case VOLUP__RIGHT: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
-        if (timer_elapsed(key_timer) < NORMAL) {
+        if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC__VOLUP);
           unregister_code(KC__VOLUP);
         } else {

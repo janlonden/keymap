@@ -10,18 +10,6 @@
 #define OPEN_LAYER13 10
 #define LOGIN 11
 
-// layer 10
-#define _LBRC 20
-#define _RBRC 21
-#define _BSLS 22
-#define _QUOT 24
-#define _MINS 25
-#define _EQL 26
-
-// layer 11
-#define LPRN_1 31
-#define RPRN_E 32
-
 // layer 13
 #define CLOSE_LAYER13 40
 
@@ -33,28 +21,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, KC_COMM, KC_DOT, KC_SLSH, M(OPEN_LAYER13)},
     {_______, _______, _______, _______, _______, _______, _______, _______, CM_L, CM_U, CM_Y, CM_SCLN},
     {_______, _______, _______, _______, _______, _______, _______, _______, CM_N, CM_E, CM_I, CM_O},
-    {M(LOGIN), _______, _______, _______, _______, _______, MO(10), KC_LSFT, CM_H, CM_K, CM_M, CM_J}
+    {M(LOGIN), _______, _______, _______, MO(15), MO(14), MO(10), KC_LSFT, CM_H, CM_K, CM_M, CM_J}
   },
 
   [10] = {
-    {_______, _______, _______, _______, _______, _______, _______, _______, M(_LBRC), M(_RBRC), M(_BSLS), _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, M(_QUOT), M(_MINS), M(_EQL), MO(12)},
-    {_______, _______, _______, _______, _______, _______, _______, OSL(14), _______, _______, _______, MO(11)},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {RESET, _______, _______, _______, _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_QUOT, KC_MINS, KC_EQL, MO(12)},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LCTL, KC_LSFT, KC_LALT, MO(11)},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_ENT, KC_RALT, _______, _______}
   },
 
   [11] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, M(LPRN_1), M(RPRN_E), _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, S(KC_QUOT), S(KC_MINS), S(KC_EQL), _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, S(KC_1), _______, _______, _______}
   },
 
   [12] = {
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LCTL, KC_LSFT, KC_LALT, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_RALT, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, RALT(CM_E), _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_GRV, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [13] = {
@@ -65,10 +53,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [14] = {
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______},
-    {_______, _______, _______, _______, _______, _______, RESET, _______, KC_F1, KC_F2, KC_F3, _______}
+    {_______, _______, _______, _______, _______, _______, _______, M(7), M(8), M(9), _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, M(4), M(5), M(6), _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, M(1), M(2), M(3), M(0), _______},
+    {_______, _______, _______, _______, _______, _______, _______, KC_DOT, _______, _______, KC_BSPC, _______}
+  },
+
+  [15] = {
+    {_______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, KC_F7, KC_F8, KC_F9, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, KC_F4, KC_F5, KC_F6, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, KC_F1, KC_F2, KC_F3, _______, _______, _______}
   }
 
   // [] = {
@@ -105,132 +100,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         unregister_code(CM_T);
         register_code(KC_ENT);
         unregister_code(KC_ENT);
-      }
-      break;
-    }
-// layer 10 //////////////////////////////////////////////////////
-    case _LBRC: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LSFT);
-          register_code(KC_LBRC);
-          unregister_code(KC_LBRC);
-          unregister_code(KC_LSFT);
-        } else {
-          register_code(KC_LBRC);
-          unregister_code(KC_LBRC);
-        }
-      }
-      break;
-    }
-    case _RBRC: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LSFT);
-          register_code(KC_RBRC);
-          unregister_code(KC_RBRC);
-          unregister_code(KC_LSFT);
-        } else {
-          register_code(KC_RBRC);
-          unregister_code(KC_RBRC);
-        }
-      }
-      break;
-    }
-    case _BSLS: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LSFT);
-          register_code(KC_BSLS);
-          unregister_code(KC_BSLS);
-          unregister_code(KC_LSFT);
-        } else {
-          register_code(KC_BSLS);
-          unregister_code(KC_BSLS);
-        }
-      }
-      break;
-    }
-    case _QUOT: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_QUOT);
-          unregister_code(KC_QUOT);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_QUOT);
-          unregister_code(KC_QUOT);
-          unregister_code(KC_LSFT);
-        }
-      }
-      break;
-    }
-    case _MINS: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_MINS);
-          unregister_code(KC_MINS);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_MINS);
-          unregister_code(KC_MINS);
-          unregister_code(KC_LSFT);
-        }
-      }
-      break;
-    }
-    case _EQL: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_EQL);
-          unregister_code(KC_EQL);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_EQL);
-          unregister_code(KC_EQL);
-          unregister_code(KC_LSFT);
-        }
-      }
-      break;
-    }
-// layer 11 //////////////////////////////////////////////////////
-    case LPRN_1: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LSFT);
-          register_code(KC_9);
-          unregister_code(KC_9);
-          unregister_code(KC_LSFT);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_1);
-          unregister_code(KC_1);
-          unregister_code(KC_LSFT);
-        }
-      }
-      break;
-    }
-    case RPRN_E: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LSFT);
-          register_code(KC_0);
-          unregister_code(KC_0);
-          unregister_code(KC_LSFT);
-        } else {
-          register_code(KC_RALT);
-          register_code(CM_E);
-          unregister_code(CM_E);
-          unregister_code(KC_RALT);
-        }
       }
       break;
     }
