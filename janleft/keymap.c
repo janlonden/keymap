@@ -3,97 +3,131 @@
 
 #define _______ KC_TRNS
 
+// SPEEDS
 #define QUICK 125
 #define NORMAL 150
 #define SLOW 300
-#define SUPERSLOW 600
 
-// layer 0
-#define SPC__LAYER16 10
-#define LOGIN 11
+// LAYERS
+#define COLEMAK_SOFT 0
+#define COLEMAK_HARD 1
+#define NUMBERS 2
+#define RABBIT_HOLE 3
+#define MISC1 4
+#define MISC2 5
+#define MISC3 6
+#define MISC4 7
+#define BROWSER 8
 
-// layer 10
-#define TAB__A__D 20
-#define ENT__T__N 21
-#define TAB__P__O 22
-#define HOME__W__Q 23
-#define END__S__R 24
-#define BSPC__LAYER11 25
-#define BSPC__LAYER12 26
-#define V__C__X__SFT 27
-#define ESC__CTL 28
+// COLEMAK_SOFT
+#define BROWSER__SPC 20
+#define LOGIN 21
 
-// layer 11
-#define _SLSH 30
-#define ALT_LEFT__K 31
+// RABBIT_HOLE
+#define SFT_TAB__P__O 30
+#define V__C__X 31
+#define TAB__T__N 32
+#define MISC1__ALT_LEFT 33
+#define HOME__W 34
+#define END__S__R 35
+#define MISC2__BSPC 36
+#define MISC3__CTL_BSPC 37
+#define NUMBERS__MISC4 38
 
-// layer 12
-#define LEFT__UP 41
-#define ALT_TAB 42
-#define VOLDOWN__LEFT 43
-#define MUTE__DOWN 44
-#define VOLUP__RIGHT 45
-#define F12__F2__F11 46
-#define _DEL 47
+// MISC2
+#define CTL_D__CTL_F2__F2 48
+
+// MISC3
+#define LEFT__UP 51
+#define ALT_TAB 52
+#define VOLDOWN__LEFT 53
+#define MUTE__DOWN 54
+#define VOLUP__RIGHT 55
+#define DEL 56
+
+// MISC4
+#define MISC4_CLOSE 60
+
+// NUMBERS
+#define ENT__F1 0
+#define DOT__F2 1
+#define _0__F3 2
+#define _1__F4 3
+#define _2__F5 4
+#define _3__F6 5
+#define _4__F7 6
+#define _5__F8 7
+#define _6__F9 8
+#define _7__F10 9
+#define _8__F11 10
+#define _9__F12 11
+#define NUMBERS_CLOSE 12
 
 static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = {
-    {M(SPC__LAYER16), CM_G, CM_D, CM_B, RALT(CM_SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
+  [COLEMAK_SOFT] = {
+    {M(BROWSER__SPC), CM_G, CM_D, CM_B, RALT(CM_SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
     {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), _______, _______, _______, _______, _______, _______, KC_PSCREEN},
-    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), _______, _______, _______, _______, _______, _______, _______},
-    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(10), MO(14), MO(15), _______, _______, _______, M(LOGIN)}
+    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), _______, _______, _______, _______, _______, _______, TG(COLEMAK_HARD)},
+    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(RABBIT_HOLE), _______, _______, _______, _______, _______, M(LOGIN)}
   },
 
-  [10] = {
-    {_______, M(TAB__A__D), M(ENT__T__N), M(TAB__P__O), _______, _______, _______, _______, _______, _______, _______, RESET},
-    {MO(13), M(HOME__W__Q), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(BSPC__LAYER11), KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(BSPC__LAYER12), LCTL(CM_D), M(ESC__CTL), M(V__C__X__SFT), _______, _______, _______, _______, _______, _______, _______, _______}
+  [COLEMAK_HARD] = {
+    {_______, KC_G, KC_D, KC_B, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_Q, KC_W, KC_F, KC_P, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_A, KC_R, KC_S, KC_T, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_Z, KC_X, KC_C, KC_V, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
-  [11] = {
-    {_______, LCTL(KC_0), LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
+  [RABBIT_HOLE] = {
+    {_______, M(SFT_TAB__P__O), M(V__C__X), M(TAB__T__N), _______, _______, _______, _______, _______, _______, _______, RESET},
+    {M(MISC1__ALT_LEFT), M(HOME__W), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(MISC2__BSPC), KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(MISC3__CTL_BSPC), KC_ENT, KC_ESC, M(NUMBERS__MISC4), _______, _______, _______, _______, _______, _______, _______, _______}
+  },
+
+  [MISC1] = {
+    {_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, KC_LGUI, KC_RALT, _______, _______, _______, _______, _______, _______}
+  },
+
+  [MISC2] = {
+    {_______, LCTL(LALT(S(KC_DOWN))), LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, M(_SLSH), M(ALT_LEFT__K), KC_BTN3, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, LCTL(KC_SLSH), M(CTL_D__CTL_F2__F2), KC_BTN3, _______, _______, _______, _______, _______, _______}
   },
 
-  [12] = {
+  [MISC3] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, M(LEFT__UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, M(VOLDOWN__LEFT), M(MUTE__DOWN), M(VOLUP__RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_PGUP, KC_PGDOWN, M(F12__F2__F11), LSFT(KC_SPC), M(_DEL), _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, LCTL(S(CM_K)), M(DEL), LSFT(KC_SPC), _______, _______, _______, _______, _______, _______}
   },
 
-  [13] = {
-    {_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, KC_RALT, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______}
+  [MISC4] = {
+    {_______, LGUI(KC_SPC), LCTL(CM_F), LALT(CM_D), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(KC_HOME), LALT(KC_UP), LCTL(KC_END), _______, _______, _______, _______, _______, _______, _______, _______},
+    {LCTL(CM_A), KC_PGUP, LALT(KC_DOWN), KC_PGDOWN, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, M(MISC4_CLOSE), _______, _______, _______, _______, _______, _______, _______}
   },
 
-  [14] = {
-    {_______, _______, M(7), M(8), M(9), _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, M(4), M(5), M(6), _______, _______, _______, _______, _______, _______, _______},
-    {_______, M(0), M(1), M(2), M(3), _______, _______, _______, _______, _______, _______, _______},
-    {_______, KC_BSPC, _______, _______, KC_DOT, _______, _______, _______, _______, _______, _______, _______}
-  },
-
-  [15] = {
-    {_______, _______, _______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, KC_F7, KC_F8, KC_F9, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, KC_F4, KC_F5, KC_F6, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, KC_F1, KC_F2, KC_F3, _______, _______, _______, _______, _______, _______}
-  },
-
-  [16] = {
+  [BROWSER] = {
     {_______, S(KC_SPC), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(CM_W), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {KC_LSFT, KC_LCTL, LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_ENT, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, LCTL(KC_PGUP), LCTL(KC_PGDOWN), KC_ENT, _______, _______, _______, _______, _______, _______, _______}
+  },
+
+  [NUMBERS] = {
+    {_______, M(_7__F10), M(_8__F11), M(_9__F12), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, M(_4__F7), M(_5__F8), M(_6__F9), _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_BSPC, M(_1__F4), M(_2__F5), M(_3__F6), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, M(ENT__F1), M(DOT__F2), M(_0__F3), M(NUMBERS_CLOSE), _______, _______, _______, _______, _______, _______, _______}
   }
 
   // [] = {
@@ -111,13 +145,13 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
-// layer 0 //////////////////////////////////////////////////////
-    case SPC__LAYER16: {
+// COLEMAK_SOFT //////////////////////////////////////////////////////
+    case BROWSER__SPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        layer_on(16);
+        layer_on(BROWSER);
       } else {
-        layer_off(16);
+        layer_off(BROWSER);
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_SPC);
           unregister_code(KC_SPC);
@@ -140,8 +174,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// layer 10 //////////////////////////////////////////////////////
-    case TAB__A__D: {
+// RABBIT_HOLE //////////////////////////////////////////////////////
+    case SFT_TAB__P__O: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
@@ -149,46 +183,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_TAB);
           unregister_code(KC_TAB);
           unregister_code(KC_LSFT);
-        } else if (timer_elapsed(key_timer) < SLOW) {
-          register_code(KC_LCTL);
-          register_code(CM_A);
-          unregister_code(CM_A);
-          unregister_code(KC_LCTL);
-        } else {
-          register_code(KC_LALT);
-          register_code(CM_D);
-          unregister_code(CM_D);
-          unregister_code(KC_LALT);
-        }
-      }
-      break;
-    }
-    case ENT__T__N: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_ENT);
-          unregister_code(KC_ENT);
-        } else if (timer_elapsed(key_timer) < SLOW) {
-          register_code(KC_LCTL);
-          register_code(CM_T);
-          unregister_code(CM_T);
-          unregister_code(KC_LCTL);
-        } else {
-          register_code(KC_LCTL);
-          register_code(CM_N);
-          unregister_code(CM_N);
-          unregister_code(KC_LCTL);
-        }
-      }
-      break;
-    }
-    case TAB__P__O: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_TAB);
-          unregister_code(KC_TAB);
         } else if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
           register_code(CM_P);
@@ -203,21 +197,73 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case HOME__W__Q: {
+    case V__C__X: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_LCTL);
+          register_code(KC_V);
+          unregister_code(KC_V);
+          unregister_code(KC_LCTL);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LCTL);
+          register_code(KC_C);
+          unregister_code(KC_C);
+          unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_LCTL);
+          register_code(KC_X);
+          unregister_code(KC_X);
+          unregister_code(KC_LCTL);
+        }
+      }
+      break;
+    }
+    case TAB__T__N: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_TAB);
+          unregister_code(KC_TAB);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          register_code(KC_LCTL);
+          register_code(CM_T);
+          unregister_code(CM_T);
+          unregister_code(KC_LCTL);
+        } else {
+          register_code(KC_LCTL);
+          register_code(CM_N);
+          unregister_code(CM_N);
+          unregister_code(KC_LCTL);
+        }
+      }
+      break;
+    }
+    case MISC1__ALT_LEFT: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        layer_on(MISC1);
+      } else {
+        layer_off(MISC1);
+        if (timer_elapsed(key_timer) < QUICK) {
+          register_code(KC_LALT);
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LALT);
+        }
+      }
+      break;
+    }
+    case HOME__W: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_HOME);
           unregister_code(KC_HOME);
-        } else if (timer_elapsed(key_timer) < SUPERSLOW) {
+        } else {
           register_code(KC_LCTL);
           register_code(CM_W);
           unregister_code(CM_W);
-          unregister_code(KC_LCTL);
-        } else {
-          register_code(KC_LCTL);
-          register_code(CM_Q);
-          unregister_code(CM_Q);
           unregister_code(KC_LCTL);
         }
       }
@@ -243,12 +289,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case BSPC__LAYER11: {
+    case MISC2__BSPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        layer_on(11);
+        layer_on(MISC2);
       } else {
-        layer_off(11);
+        layer_off(MISC2);
         if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_BSPC);
           unregister_code(KC_BSPC);
@@ -256,12 +302,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case BSPC__LAYER12: {
+    case MISC3__CTL_BSPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        layer_on(12);
+        layer_on(MISC3);
       } else {
-        layer_off(12);
+        layer_off(MISC3);
         if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_LCTL);
           register_code(KC_BSPC);
@@ -271,84 +317,40 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case V__C__X__SFT: {
+    case NUMBERS__MISC4: {
       if (record->event.pressed) {
         key_timer = timer_read();
-        register_code(KC_LSFT);
       } else {
-        unregister_code(KC_LSFT);
+        if (timer_elapsed(key_timer) < NORMAL) {
+          layer_on(NUMBERS);
+        } else {
+          layer_on(MISC4);
+        }
+      }
+      break;
+    }
+// MISC2 //////////////////////////////////////////////////////
+    case CTL_D__CTL_F2__F2: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LCTL);
-          register_code(CM_V);
-          unregister_code(CM_V);
+          register_code(CM_D);
+          unregister_code(CM_D);
           unregister_code(KC_LCTL);
         } else if (timer_elapsed(key_timer) < SLOW) {
           register_code(KC_LCTL);
-          register_code(CM_C);
-          unregister_code(CM_C);
-          unregister_code(KC_LCTL);
-        } else if (timer_elapsed(key_timer) < SUPERSLOW) {
-          register_code(KC_LCTL);
-          register_code(CM_X);
-          unregister_code(CM_X);
+          register_code(KC_F2);
+          unregister_code(KC_F2);
           unregister_code(KC_LCTL);
         } else {
-          //
+          register_code(KC_F2);
+          unregister_code(KC_F2);
         }
       }
       break;
     }
-    case ESC__CTL: {
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_code(KC_LCTL);
-      } else {
-        unregister_code(KC_LCTL);
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_ESC);
-          unregister_code(KC_ESC);
-        }
-      }
-      break;
-    }
-// layer 11 //////////////////////////////////////////////////////
-    case _SLSH: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LCTL);
-          register_code(KC_SLSH);
-          unregister_code(KC_SLSH);
-          unregister_code(KC_LCTL);
-        } else {
-          register_code(KC_SLSH);
-          unregister_code(KC_SLSH);
-          register_code(KC_SLSH);
-          unregister_code(KC_SLSH);
-        }
-      }
-      break;
-    }
-    case ALT_LEFT__K: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_LALT);
-          register_code(KC_LEFT);
-          unregister_code(KC_LEFT);
-          unregister_code(KC_LALT);
-        } else {
-          register_code(KC_LCTL);
-          register_code(KC_LSFT);
-          register_code(CM_K);
-          unregister_code(CM_K);
-          unregister_code(KC_LSFT);
-          unregister_code(KC_LCTL);
-        }
-      }
-      break;
-    }
-// layer 12 //////////////////////////////////////////////////////
+// MISC3 //////////////////////////////////////////////////////
     case LEFT__UP: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
@@ -423,23 +425,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case F12__F2__F11: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
-        if (timer_elapsed(key_timer) < NORMAL) {
-          register_code(KC_F12);
-          unregister_code(KC_F12);
-        } else if (timer_elapsed(key_timer) < SLOW) {
-          register_code(KC_F2);
-          unregister_code(KC_F2);
-        } else {
-          register_code(KC_F11);
-          unregister_code(KC_F11);
-        }
-      }
-      break;
-    }
-    case _DEL: {
+    case DEL: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
@@ -454,154 +440,217 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// layer 14 //////////////////////////////////////////////////////
-    case 0: {
+// MISC4 //////////////////////////////////////////////////////
+    case MISC4_CLOSE: {
+      if (record->event.pressed) {
+        layer_off(MISC4);
+      }
+      break;
+    }
+// NUMBERS //////////////////////////////////////////////////////
+    case ENT__F1: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_ENT);
+          unregister_code(KC_ENT);
+        } else {
+          layer_off(NUMBERS);
+          register_code(KC_F1);
+          unregister_code(KC_F1);
+        }
+      }
+      break;
+    }
+    case DOT__F2: {
+      if (record->event.pressed) { key_timer = timer_read(); }
+      else {
+        if (timer_elapsed(key_timer) < NORMAL) {
+          register_code(KC_DOT);
+          unregister_code(KC_DOT);
+        } else {
+          layer_off(NUMBERS);
+          register_code(KC_F2);
+          unregister_code(KC_F2);
+        }
+      }
+      break;
+    }
+    case _0__F3: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_0);
           unregister_code(KC_0);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_0);
           unregister_code(KC_0);
-          unregister_code(KC_LSFT);
+        } else {
+          layer_off(NUMBERS);
+          register_code(KC_F3);
+          unregister_code(KC_F3);
         }
       }
       break;
     }
-    case 1: {
+    case _1__F4: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_1);
           unregister_code(KC_1);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_1);
           unregister_code(KC_1);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F4);
+          unregister_code(KC_F4);
         }
       }
       break;
     }
-    case 2: {
+    case _2__F5: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_2);
           unregister_code(KC_2);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_2);
           unregister_code(KC_2);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F5);
+          unregister_code(KC_F5);
         }
       }
       break;
     }
-    case 3: {
+    case _3__F6: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_3);
           unregister_code(KC_3);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_3);
           unregister_code(KC_3);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F6);
+          unregister_code(KC_F6);
         }
       }
       break;
     }
-    case 4: {
+    case _4__F7: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_4);
           unregister_code(KC_4);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_4);
           unregister_code(KC_4);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F7);
+          unregister_code(KC_F7);
         }
       }
       break;
     }
-    case 5: {
+    case _5__F8: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_5);
           unregister_code(KC_5);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_5);
           unregister_code(KC_5);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F8);
+          unregister_code(KC_F8);
         }
       }
       break;
     }
-    case 6: {
+    case _6__F9: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_6);
           unregister_code(KC_6);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_6);
           unregister_code(KC_6);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F9);
+          unregister_code(KC_F9);
         }
       }
       break;
     }
-    case 7: {
+    case _7__F10: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_7);
           unregister_code(KC_7);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_7);
           unregister_code(KC_7);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F10);
+          unregister_code(KC_F10);
         }
       }
       break;
     }
-    case 8: {
+    case _8__F11: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_8);
           unregister_code(KC_8);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_8);
           unregister_code(KC_8);
-          unregister_code(KC_LSFT);
+        } else {
+          register_code(KC_F11);
+          unregister_code(KC_F11);
         }
       }
       break;
     }
-    case 9: {
+    case _9__F12: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_9);
           unregister_code(KC_9);
-        } else {
-          register_code(KC_LSFT);
+        } else if (timer_elapsed(key_timer) < SLOW) {
+          layer_off(NUMBERS);
           register_code(KC_9);
           unregister_code(KC_9);
-          unregister_code(KC_LSFT);
+        } else {
+          layer_off(NUMBERS);
+          register_code(KC_F12);
+          unregister_code(KC_F12);
         }
+      }
+      break;
+    }
+    case NUMBERS_CLOSE: {
+      if (record->event.pressed) {
+        layer_off(NUMBERS);
       }
       break;
     }
