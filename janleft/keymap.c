@@ -1,80 +1,73 @@
 #include "planck.h"
-#include "../../quantum/keymap_extras/keymap_colemak.h"
+#include "keymap_colemak.h"
 
 #define _______ KC_TRNS
 
-// SPEEDS
 #define QUICK 125
 #define NORMAL 150
 #define SLOW 300
 
-// LAYERS
-#define COLEMAK_SOFT 0
-#define COLEMAK_HARD 1
-#define NUMBERS 2
-#define RABBIT_HOLE 3
-#define MISC1 4
-#define MISC2 5
-#define MISC3 6
-#define MISC4 7
-#define BROWSER 8
+enum layers {
+  COLEMAK_SOFT,
+  COLEMAK_HARD,
+  NUMBERS,
+  RABBIT_HOLE,
+  MISC1,
+  MISC2,
+  MISC3,
+  MISC4,
+  BROWSER
+};
 
-// COLEMAK_SOFT
-#define BROWSER__SPC 20
-#define LOGIN 21
-
-// RABBIT_HOLE
-#define V__C__X 30
-#define ENT__T__N 31
-#define TAB__SFT_TAB__ALT_D 32
-#define MISC1__ALT_LEFT 33
-#define HOME__F__W 34
-#define END__S__R 35
-#define MISC2__BSPC 36
-#define MISC3__CTL_BSPC 37
-#define D__ESC 38
-#define P__SFT_CTL_P__O 39
-#define NUMBERS__MISC4__CTL_SFT_2 40
-
-// MISC2
-#define SLSH 50
-#define CTL_F2__F2 51
-
-// MISC3
-#define LEFT__UP 60
-#define ALT_TAB 61
-#define VOLDOWN__LEFT 62
-#define MUTE__DOWN 63
-#define VOLUP__RIGHT 64
-#define DEL 65
-
-// MISC4
-#define MISC4_CLOSE 70
-
-// NUMBERS
-#define ENT__F1 0
-#define DOT__F2 1
-#define _0__F3 2
-#define _1__F4 3
-#define _2__F5 4
-#define _3__F6 5
-#define _4__F7 6
-#define _5__F8 7
-#define _6__F9 8
-#define _7__F10 9
-#define _8__F11 10
-#define _9__F12 11
-#define NUMBERS_CLOSE 12
-
-static uint16_t key_timer;
+enum macros {
+  BROWSER__SPC,
+  LOGIN,
+  SFT__RABBIT_HOLE,
+  HOME__F__W,
+  ENT__T__N,
+  END__S__R,
+  MISC1__ALT_LEFT,
+  V__C__X,
+  UP,
+  D__ESC,
+  MISC2__BSPC,
+  LEFT,
+  DOWN,
+  RIGHT,
+  MISC3__CTL_BSPC,
+  TAB__SFT_TAB__ALT_D,
+  P__SFT_CTL_P__O,
+  NUMBERS__MISC4__CTL_SFT_2,
+  SLSH,
+  CTL_F2__F2,
+  LEFT__UP,
+  ALT_TAB,
+  VOLDOWN__LEFT,
+  MUTE__DOWN,
+  VOLUP__RIGHT,
+  DEL,
+  MISC4_CLOSE,
+  ENT__F1,
+  DOT__F2,
+  _0__F3,
+  _1__F4,
+  _2__F5,
+  _3__F6,
+  _4__F7,
+  _5__F8,
+  _6__F9,
+  _7__F10,
+  _8__F11,
+  _9__F12,
+  NUMBERS_CLOSE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [COLEMAK_SOFT] = {
     {M(BROWSER__SPC), CM_G, CM_D, CM_B, RALT(CM_SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
     {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), _______, _______, _______, _______, _______, _______, KC_PSCREEN},
     {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), _______, _______, _______, _______, _______, _______, TG(COLEMAK_HARD)},
-    {CM_Z, CM_X, CM_C, CM_V, KC_SPC, MO(RABBIT_HOLE), _______, _______, _______, _______, _______, M(LOGIN)}
+    {CM_Z, CM_X, CM_C, CM_V, M(SFT__RABBIT_HOLE), _______, _______, _______, _______, _______, _______, M(LOGIN)}
   },
 
   [COLEMAK_HARD] = {
@@ -85,38 +78,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [RABBIT_HOLE] = {
-    {_______, M(V__C__X), M(ENT__T__N), M(TAB__SFT_TAB__ALT_D), _______, _______, _______, _______, _______, _______, _______, RESET},
-    {M(MISC1__ALT_LEFT), M(HOME__F__W), KC_UP, M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(MISC2__BSPC), KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______},
-    {M(MISC3__CTL_BSPC), M(D__ESC), M(P__SFT_CTL_P__O), M(NUMBERS__MISC4__CTL_SFT_2), _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, M(HOME__F__W), M(ENT__T__N), M(END__S__R), _______, _______, _______, _______, _______, _______, _______, RESET},
+    {M(MISC1__ALT_LEFT), M(V__C__X), M(UP), M(D__ESC), _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(MISC2__BSPC), M(LEFT), M(DOWN), M(RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
+    {M(MISC3__CTL_BSPC), M(TAB__SFT_TAB__ALT_D), M(P__SFT_CTL_P__O), M(NUMBERS__MISC4__CTL_SFT_2), _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [MISC1] = {
     {_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, KC_BTN3, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, KC_LGUI, KC_RALT, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, KC_LGUI, KC_RALT, _______, _______, _______, _______, _______, _______, _______}
   },
 
   [MISC2] = {
     {_______, _______, LCTL(CM_Z), LCTL(S(CM_Z)), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_PGUP), LCTL(KC_UP), LCTL(KC_PGDOWN), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, M(SLSH), LCTL(LALT(S(KC_DOWN))), M(CTL_F2__F2), _______, _______, _______, _______, _______, _______}
+    {_______, _______, M(SLSH), LCTL(LALT(S(KC_DOWN))), M(CTL_F2__F2), _______, _______, _______, _______, _______, _______, _______}
   },
 
   [MISC3] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, M(LEFT__UP), M(ALT_TAB), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, M(VOLDOWN__LEFT), M(MUTE__DOWN), M(VOLUP__RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, LCTL(S(CM_K)), M(DEL), LSFT(KC_SPC), _______, _______, _______, _______, _______, _______}
+    {_______, _______, LCTL(S(CM_K)), M(DEL), LSFT(KC_SPC), _______, _______, _______, _______, _______, _______, _______}
   },
 
   [MISC4] = {
-    {_______, _______, LGUI(KC_SPC), LCTL(LALT(CM_T)), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, LCTL(KC_HOME), LALT(KC_UP), LCTL(KC_END), _______, _______, _______, _______, _______, _______, _______, _______},
-    {LCTL(CM_A), KC_PGUP, LALT(KC_DOWN), KC_PGDOWN, _______, _______, _______, _______, _______, _______, _______, _______},
-    {LCTL(CM_W), _______, _______, LCTL(S(CM_T)), _______, M(MISC4_CLOSE), _______, _______, _______, _______, _______, _______}
+    {_______, LCTL(KC_HOME), LGUI(KC_SPC), LCTL(KC_END), _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, LCTL(CM_W), LALT(KC_UP), KC_PGUP, _______, _______, _______, _______, _______, _______, _______, _______},
+    {LCTL(CM_A), LCTL(LALT(CM_T)), LALT(KC_DOWN), KC_PGDOWN, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, LCTL(S(CM_T)), M(MISC4_CLOSE), _______, _______, _______, _______, _______, _______, _______}
   },
 
   [BROWSER] = {
@@ -130,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, M(_7__F10), M(_8__F11), M(_9__F12), _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, M(_4__F7), M(_5__F8), M(_6__F9), _______, _______, _______, _______, _______, _______, _______, _______},
     {KC_BSPC, M(_1__F4), M(_2__F5), M(_3__F6), _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, M(ENT__F1), M(DOT__F2), M(_0__F3), _______, M(NUMBERS_CLOSE), _______, _______, _______, _______, _______, _______}
+    {_______, M(ENT__F1), M(DOT__F2), M(_0__F3), M(NUMBERS_CLOSE), _______, _______, _______, _______, _______, _______, _______}
   }
 
   // [] = {
@@ -142,13 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
+const uint16_t PROGMEM fn_actions[] = {};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  static uint16_t key_timer;
   switch(id) {
-// COLEMAK_SOFT //////////////////////////////////////////////////////
     case BROWSER__SPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
@@ -177,10 +168,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// RABBIT_HOLE //////////////////////////////////////////////////////
+    case SFT__RABBIT_HOLE: {
+      if (record->event.pressed) {
+        register_code(KC_LSFT);
+        layer_on(RABBIT_HOLE);
+      } else {
+        unregister_code(KC_LSFT);
+        layer_off(RABBIT_HOLE);
+      }
+      break;
+    }
     case V__C__X: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LCTL);
           register_code(KC_V);
@@ -201,8 +203,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case ENT__T__N: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_ENT);
           unregister_code(KC_ENT);
@@ -221,8 +225,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case TAB__SFT_TAB__ALT_D: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_TAB);
           unregister_code(KC_TAB);
@@ -243,6 +249,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case MISC1__ALT_LEFT: {
       if (record->event.pressed) {
         key_timer = timer_read();
+        unregister_code(KC_LSFT);
         layer_on(MISC1);
       } else {
         layer_off(MISC1);
@@ -255,9 +262,47 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
+    case UP: {
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        register_code(KC_UP);
+      } else {
+        unregister_code(KC_UP);
+      }
+      break;
+    }
+    case LEFT: {
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        register_code(KC_LEFT);
+      } else {
+        unregister_code(KC_LEFT);
+      }
+      break;
+    }
+    case DOWN: {
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        register_code(KC_DOWN);
+      } else {
+        unregister_code(KC_DOWN);
+      }
+      break;
+    }
+    case RIGHT: {
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        register_code(KC_RIGHT);
+      } else {
+        unregister_code(KC_RIGHT);
+      }
+      break;
+    }
     case HOME__F__W: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_HOME);
           unregister_code(KC_HOME);
@@ -276,8 +321,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case END__S__R: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_END);
           unregister_code(KC_END);
@@ -298,6 +345,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case MISC2__BSPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
+        unregister_code(KC_LSFT);
         layer_on(MISC2);
       } else {
         layer_off(MISC2);
@@ -311,6 +359,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case MISC3__CTL_BSPC: {
       if (record->event.pressed) {
         key_timer = timer_read();
+        unregister_code(KC_LSFT);
         layer_on(MISC3);
       } else {
         layer_off(MISC3);
@@ -324,8 +373,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case D__ESC: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < QUICK) {
           register_code(KC_LCTL);
           register_code(CM_D);
@@ -339,8 +390,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case P__SFT_CTL_P__O: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           register_code(KC_LCTL);
           register_code(CM_P);
@@ -363,8 +416,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     }
     case NUMBERS__MISC4__CTL_SFT_2: {
-      if (record->event.pressed) { key_timer = timer_read(); }
-      else {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        unregister_code(KC_LSFT);
+      } else {
         if (timer_elapsed(key_timer) < NORMAL) {
           layer_on(NUMBERS);
         } else if (timer_elapsed(key_timer) < SLOW) {
@@ -380,7 +435,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// MISC2 //////////////////////////////////////////////////////
     case SLSH: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
@@ -413,7 +467,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// MISC3 //////////////////////////////////////////////////////
     case LEFT__UP: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
@@ -503,14 +556,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-// MISC4 //////////////////////////////////////////////////////
     case MISC4_CLOSE: {
       if (record->event.pressed) {
         layer_off(MISC4);
       }
       break;
     }
-// NUMBERS //////////////////////////////////////////////////////
     case ENT__F1: {
       if (record->event.pressed) { key_timer = timer_read(); }
       else {
