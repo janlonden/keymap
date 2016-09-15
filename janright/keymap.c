@@ -22,6 +22,7 @@ enum macros {
   SLSH,
   QUOT,
   MINS,
+  EQL,
   _0__F1,
   DOT__F2,
   ENT__F3,
@@ -35,6 +36,8 @@ enum macros {
   _8__F11,
   _9__F12
 };
+
+static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -53,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [RABBIT_HOLE] = {
-    {RESET, _______, _______, _______, _______, _______, _______, _______, M(SLSH), _______, _______, _______},
+    {RESET, _______, _______, _______, _______, _______, _______, _______, M(SLSH), _______, M(EQL), _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(QUOT), _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, M(MINS), _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, MO(MISC2), _______, _______, _______, _______}
@@ -67,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [MISC2] = {
-    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, KC_EQL, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, S(KC_LBRC), S(KC_RBRC), S(KC_BSLS), _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -92,7 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint16_t key_timer;
   switch(id) {
     case LOGIN: {
       if (record->event.pressed) {
@@ -140,6 +142,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         unregister_code(KC_RSFT);
         register_code(KC_MINS);
         unregister_code(KC_MINS);
+      }
+      break;
+    }
+    case EQL: {
+      if (record->event.pressed) {
+        unregister_code(KC_RSFT);
+        register_code(KC_EQL);
+        unregister_code(KC_EQL);
       }
       break;
     }
@@ -200,6 +210,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_1);
           unregister_code(KC_1);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F4);
           unregister_code(KC_F4);
         }
@@ -217,6 +228,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_2);
           unregister_code(KC_2);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F5);
           unregister_code(KC_F5);
         }
@@ -234,6 +246,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_3);
           unregister_code(KC_3);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F6);
           unregister_code(KC_F6);
         }
@@ -251,6 +264,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_4);
           unregister_code(KC_4);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F7);
           unregister_code(KC_F7);
         }
@@ -268,6 +282,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_5);
           unregister_code(KC_5);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F8);
           unregister_code(KC_F8);
         }
@@ -285,6 +300,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_6);
           unregister_code(KC_6);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F9);
           unregister_code(KC_F9);
         }
@@ -302,6 +318,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_7);
           unregister_code(KC_7);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F10);
           unregister_code(KC_F10);
         }
@@ -319,6 +336,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_8);
           unregister_code(KC_8);
         } else {
+          layer_off(NUMBERS);
           register_code(KC_F11);
           unregister_code(KC_F11);
         }
