@@ -21,6 +21,9 @@ enum layers {
 
 enum macros {
   BROWSER__SPC,
+  RALT__SCLN,
+  RALT__W,
+  RALT__Q,
   LOGIN,
   SFT__RABBIT_HOLE,
   SFT__SPC,
@@ -30,7 +33,7 @@ enum macros {
   MISC1__ALT_LEFT,
   V__C__X,
   UP,
-  D__ESC,
+  ESC__D,
   MISC2__BSPC,
   LEFT,
   DOWN,
@@ -67,9 +70,9 @@ static uint16_t key_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK_SOFT] = {
-    {M(BROWSER__SPC), CM_G, CM_D, CM_B, RALT(CM_SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
-    {CM_Q, CM_W, CM_F, CM_P, RALT(CM_W), _______, _______, _______, _______, _______, _______, KC_PSCREEN},
-    {CM_A, CM_R, CM_S, CM_T, RALT(CM_Q), _______, _______, _______, _______, _______, _______, TG(COLEMAK_HARD)},
+    {M(BROWSER__SPC), CM_G, CM_D, CM_B, M(RALT__SCLN), _______, _______, _______, _______, KC__VOLDOWN, KC__VOLUP, KC__MUTE},
+    {CM_Q, CM_W, CM_F, CM_P, M(RALT__W), _______, _______, _______, _______, _______, _______, KC_PSCREEN},
+    {CM_A, CM_R, CM_S, CM_T, M(RALT__Q), _______, _______, _______, _______, _______, _______, TG(COLEMAK_HARD)},
     {CM_Z, CM_X, CM_C, CM_V, M(SFT__RABBIT_HOLE), M(SFT__SPC), _______, _______, _______, _______, _______, M(LOGIN)}
   },
 
@@ -81,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
   [RABBIT_HOLE] = {
-    {_______, M(V__C__X), M(ENT__T__N), M(D__ESC), _______, _______, _______, _______, _______, _______, _______, RESET},
+    {_______, M(V__C__X), M(ENT__T__N), M(ESC__D), _______, _______, _______, _______, _______, _______, _______, RESET},
     {M(MISC1__ALT_LEFT), M(HOME__F__W), M(UP), M(END__S__R), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(MISC2__BSPC), M(LEFT), M(DOWN), M(RIGHT), _______, _______, _______, _______, _______, _______, _______, _______},
     {M(MISC3__CTL_BSPC), M(TAB__SFT_TAB__ALT_D), M(P__SFT_CTL_P__O), M(NUMBERS__MISC4__CTL_SFT_2), _______, _______, _______, _______, _______, _______, _______, _______}
@@ -152,6 +155,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(KC_SPC);
           unregister_code(KC_SPC);
         }
+      }
+      break;
+    }
+    case RALT__SCLN: {
+      if (record->event.pressed) {
+        register_code(KC_RALT);
+        register_code(CM_SCLN);
+        unregister_code(CM_SCLN);
+        unregister_code(KC_RALT);
+      }
+      break;
+    }
+    case RALT__Q: {
+      if (record->event.pressed) {
+        register_code(KC_RALT);
+        register_code(CM_Q);
+        unregister_code(CM_Q);
+        unregister_code(KC_RALT);
+      }
+      break;
+    }
+    case RALT__W: {
+      if (record->event.pressed) {
+        register_code(KC_RALT);
+        register_code(CM_W);
+        unregister_code(CM_W);
+        unregister_code(KC_RALT);
       }
       break;
     }
@@ -387,19 +417,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     }
-    case D__ESC: {
+    case ESC__D: {
       if (record->event.pressed) {
         key_timer = timer_read();
         unregister_code(KC_LSFT);
       } else {
         if (timer_elapsed(key_timer) < QUICK) {
+          register_code(KC_ESC);
+          unregister_code(KC_ESC);
+        } else {
           register_code(KC_LCTL);
           register_code(CM_D);
           unregister_code(CM_D);
           unregister_code(KC_LCTL);
-        } else {
-          register_code(KC_ESC);
-          unregister_code(KC_ESC);
         }
       }
       break;
